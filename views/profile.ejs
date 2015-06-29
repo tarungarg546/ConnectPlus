@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<title>Your Profile Preview</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style2.css" />
+		<script src="js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<button id="menu-toggle" class="menu-toggle"><span>Menu</span></button>
+			<div id="theSidebar" class="sidebar">
+				<button class="close-button fa fa-fw fa-close"></button>
+				<h1><span>ConnectPlus</h1>
+				<div class="related">
+					<h3>Related Things</h3>
+					<a href="https://bitbucket.org/tarun_garg_/connect" target="_blank">View Code</a>
+					<a href="http://slides.com/tarun_19/connect/live#/0/1" target="_blank">View SlideShow</a>
+					<a href="javascript:alert('As of now!We have used IBM personality Insight API,Twitter API(With app only oauth).To know more please visit our slide show..:)')">View IBM Products and API used</a>
+				</div>
+			</div>
+			<div id="theGrid" class="main">
+				<section class="grid">
+					<footer class="page-meta">
+						<span>&copy; Connect+ 2015</span>
+					</footer>
+				</section>
+				<section class="content">
+					<div class="scroll-wrap">
+					</div>
+					<button class="close-button"><i class="fa fa-close"></i><span>Close</span></button>
+				</section>
+			</div>
+		</div>
+		<script type="text/javascript">
+			
+			var data=[];
+			data=<%- JSON.stringify(data) %>;
+			var length=data.length;
+			console.log(length);
+			for(var index=0;index<length;index++)
+			{
+				var base=document.createElement("a");
+				base.setAttribute("class","grid__item");
+				base.setAttribute("href","#");
+				var h2=document.createElement("h2");
+				h2.setAttribute("class","title title--preview");
+				h2.innerHTML=data[index].name+'<br>('+data[index].twitterName+')';
+				var div1=document.createElement("div");
+				div1.setAttribute("class","loader");
+				base.appendChild(h2);
+				base.appendChild(div1);
+				var span1=document.createElement("span");
+				span1.setAttribute("class","category");
+				span1.innerHTML=Math.round(data[index].percentageMatch*100)/100+"% Match";
+				base.appendChild(span1);
+				var div2=document.createElement("div");
+				div2.setAttribute("class","meta meta--preview");
+				var img=document.createElement("img");
+				img.setAttribute("class","meta__avatar");
+				img.setAttribute("src",data[index].image);
+				img.setAttribute("alt",data[index].name )
+				var span3=document.createElement("span");
+				span3.setAttribute("class","meta__reading-time");
+				span3.innerHTML="<i class='fa fa-comments-o'></i>"+data[index].noOfTweets;
+				var span2=document.createElement("span");
+				span2.setAttribute("class","meta__date");
+				span2.innerHTML="<i class='fa fa-street-view'></i>"+ data[index].noOfFollowers;
+				div2.appendChild(img);
+				div2.appendChild(span2);
+				div2.appendChild(span3);
+				base.appendChild(div2);
+				var desire=document.getElementsByClassName('grid');
+				desire[0].appendChild(base);
+			}
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="js/circle-progress.js"></script>
+		<script type="text/javascript">
+			var data=[];
+			data=<%- JSON.stringify(data) %>;
+			var length=data.length;
+			console.log(length);
+			for(var index=0;index<length;index++)
+			{
+				var base=document.createElement("article");
+				base.setAttribute("class","content__item");
+				var span1=document.createElement("span");
+				span1.setAttribute("class","category category--full");
+				span1.innerHTML='@'+data[index].twitterName;
+				base.appendChild(span1);
+				var h2=document.createElement("h2");
+				h2.setAttribute("class","title title--full");
+				h2.innerHTML=data[index].description;
+				base.appendChild(h2);
+				var div1=document.createElement("div");
+				div1.setAttribute("class","meta meta--full");
+				var img=document.createElement("img");
+				img.setAttribute("class","meta__avatar");
+				img.setAttribute("src",data[index].image);
+				img.setAttribute("alt",data[index].name);
+				div1.appendChild(img);
+				var span2=document.createElement("span");
+				span2.setAttribute("class","meta__author");
+				span2.innerHTML=data[index].name;
+				div1.appendChild(span2);
+				var span3=document.createElement("span");
+				span3.setAttribute("class","meta__misc meta__misc--seperator");
+				span3.innerHTML="<i class='fa fa-comments-o'></i>"+data[index].noOfTweets+" Tweets";
+				div1.appendChild(span3);
+				var span4=document.createElement("span");
+				span4.setAttribute("class","meta__misc");
+				span4.innerHTML="<i class='fa fa-heart'></i>"+data[index].noOfFollowers+" Followers";
+				div1.appendChild(span4);
+				var nav=document.createElement("nav");
+				nav.setAttribute("class","article-nav");
+				var button1=document.createElement("button");
+				var span5=document.createElement("span");
+				span5.innerHTML="<i class='fa fa-angle-left'></i>Previous</i>";
+				button1.appendChild(span5);
+				nav.appendChild(button1);
+				var button2=document.createElement("button");
+				var span6=document.createElement("span");
+				span6.innerHTML="Next<i class='fa fa-angle-right'></i>";
+				button2.appendChild(span6);
+				nav.appendChild(button2);
+				div1.appendChild(nav);
+				base.appendChild(div1);
+				var traits=[];
+				traits.push("Curiosity");
+				traits.push("Efficiency");
+				traits.push("Energetic ");
+				traits.push("Friendliness");
+				traits.push("Sensitivity");
+				var trait=[];
+				trait.push("openness");
+				trait.push("conscientiousness");
+				trait.push("extraversion");
+				trait.push("agreeableness");
+				trait.push("emotionalRage");
+				var p=document.createElement("p");
+				var idx=1,circle=[];
+				while(idx<=5)
+				{
+					var name="circle"+idx+index;
+					var temp=name;
+					var traitidx=idx%5?idx%5:idx;
+					traitidx=traitidx-1;
+					var naam=document.createElement("p");
+					naam.setAttribute("class","leftCircle");
+					naam.setAttribute("id",temp);
+					var lo=traits[traitidx];
+					naam.innerHTML=traits[traitidx]+" Match = ";
+					var strong=document.createElement("strong");
+					console.log(traits[traitidx],data[index][trait[traitidx]]);
+					strong.innerHTML=Math.round(Math.abs(100-Math.abs(data[index][trait[traitidx]]-data[0][trait[traitidx]])*100)*100)/100;
+					naam.appendChild(strong);	
+					idx++;
+					p.appendChild(naam);
+					//idx++;
+				}
+				base.appendChild(p);
+				var desire=document.getElementsByClassName('scroll-wrap');
+				desire[0].appendChild(base);
+				var idx=1;
+				console.log(index);
+				while(idx<=5)
+				{
+					console.log(index);
+					var name="circle"+idx+index;
+					var temp=name;
+					var traitidx=idx%5?idx%5:idx;
+					traitidx=traitidx-1;
+					var val=Math.abs(data[0][trait[traitidx]]-data[index][trait[traitidx]]);
+					console.log(1-val);
+					$('#'+name).circleProgress({
+	    				value: 1.000-val,
+	    				fill: { gradient: ['#0681c4', '#07c6c1'] },
+	    				animation:false
+					});
+					idx++;
+				}
+			}
+		</script>
+		<script src="js/classie.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>

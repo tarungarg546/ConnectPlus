@@ -1,0 +1,11 @@
+$(document).ready(function(){
+	$(".button-collapse").sideNav();
+	$(".dropdown-button").dropdown();
+	$('.dummy').each(function(){
+		$(this).on('click',function()
+		{
+			$('.dummy').not(this).removeClass('active');
+			$(this).addClass('active');
+		});
+	});
+});

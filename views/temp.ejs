@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	.rightCircle
+	{
+		float: right;
+	}
+	</style>
+	<title></title>
+	<script src="js/jquery.js"></script>
+	<script src="js/circle-progress.js"></script>
+	
+</head>
+<body>
+	<div class="first circle leftCircle" id="circle1">
+		Openness:-<strong></strong>
+	</div>
+	<div class="leftCircle" id="circle2">
+		Conscientiousness:-<strong></strong>
+	</div>
+	<div class="rightCircle" id="circle3">
+		Extraversion:-<strong></strong>
+	</div>
+	<div class="rightCircle" id="circle4">
+		Agreeableness:-<strong></strong>
+	</div>
+	<div class="leftCircle" id="circle5">
+		EmotionalRage:-<strong></strong>
+	</div>
+</body>
+<script type="text/javascript">
+		$('#circle2').circleProgress({
+    		value:"0.8",
+    		fill: { gradient: ['#0681c4', '#07c6c1'] }
+			}).on('circle-animation-progress', function(event, progress, stepValue) {
+    			$(this).find('strong').text(String(stepValue.toFixed(2)).substr(1)*100);
+		});
+			$('#circle3').circleProgress({
+    		value: 0.8,
+    		fill: { gradient: ['#0681c4', '#07c6c1'] }
+			}).on('circle-animation-progress', function(event, progress, stepValue) {
+    			$(this).find('strong').text(String(stepValue.toFixed(2)).substr(1));
+		});
+	</script>
+</html>

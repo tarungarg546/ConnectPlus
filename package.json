@@ -1,0 +1,21 @@
+{
+  "name": "ConnectPlus",
+  "version": "0.0.1",
+  "description": "Application that help you Find Similar People around you connect with them",
+  "dependencies": {
+    "body-parser": "~1.12.3",
+    "cookie-parser": "^1.3.5",
+    "ejs": "^2.3.1",
+    "express": "~4.5.1",
+    "method-override": "~2.0.2",
+    "simple-twitter": "^1.0.7",
+    "watson-developer-cloud": "~0.9.9"
+  },
+  "engines": {
+    "node": ">=0.10.38"
+  },
+  "author": "Tarun Garg",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
