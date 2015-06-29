@@ -5,15 +5,15 @@ var async=require('async');
 require('./config/express')(app);
 //URL for the same is by default embedded
 var twitter = require('simple-twitter');
- twitter = new twitter('ggiEKeE6bdZuKtaM4VRhkejy6', //consumer key from twitter api
-                       'uAEVFPi2Eq82XP12BDgJ95FAgj4PNJKOoMNe8hzMmJhT0GIPVp', //consumer secret key from twitter api
-                       '2218925556-ciYuqZfuPB62EmNGEAeM6N9PwccFwu1J83li6lz', //acces token from twitter api
-                       'TuR81uYkDXuynQ4knUTFfFrbfsZU2CtTwbyP4f16Xendd'//acces token secret from twitter api
+ twitter = new twitter('************', //consumer key from twitter api
+                       '**************', //consumer secret key from twitter api
+                       ******************', //acces token from twitter api
+                       '******************'//acces token secret from twitter api
                        );
 var personalityInsight=watson.personality_insights({
 	version:'v2',
-	username:'500f8c22-394e-44fb-b726-cef3e6e62963',
-	password:'DdGUezSeC7v1'
+	username:'********************',//btain from ibm watson service
+	password:'******'
 });
 app.get('/',function(req,res){
 	res.render('index');
