@@ -23,9 +23,21 @@ Twitter API
 IBM watson PI API*
 ## How to run ##
 *1. Clone this in your local machine
+
+
 2.Download Nodejs command prompt for your OS
+
+
 3.open nodejs command prompt and change directory in that to this projects directory
+
+
 4.type npm install #it will install all dependencies
+
+
 5.type node server.js
+
+
 6.Go to loacalhost:3000 to see it in action
+
+
 **### Dont forget to include your own credentials to use twitter and IBM apis ###***
