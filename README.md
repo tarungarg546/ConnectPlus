@@ -31,7 +31,7 @@ We tried to solve this problem by analyzing people around your present location.
 5.type node server.js
 
 
-6.Go to loacalhost:3000 to see it in action
+6.Go to localhost:3000 to see it in action
 
 
 **### Dont forget to include your own credentials to use twitter and IBM apis ###**
