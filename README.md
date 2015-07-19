@@ -1,16 +1,12 @@
 # [Connect +](http://connectplus.mybluemix.net) #
 
 
-```
-#!python
 
 Thought Process 
 Think in Indian scenario there are so many events(gatherings) in your relatives 
 and often you find your self in awkward situation where 
 you don't know anyone around you OR you don`t know who should you connect with.
 We tried to solve this problem by analyzing people around your present location.
-```
-
 
 ```
 #!python
