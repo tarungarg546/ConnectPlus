@@ -9,7 +9,6 @@ you don't know anyone around you OR you don`t know who should you connect with.
 We tried to solve this problem by analyzing people around your present location.
 
 ```
-#!python
 
 ## How to run ##
 1. Clone this in your local machine
@@ -60,7 +59,6 @@ your interest match with opponents.
 
 
 ```
-#!python
 Technology Stack 
 NodeJS
 
