@@ -7,7 +7,7 @@ require('./config/express')(app);
 var twitter = require('simple-twitter');
  twitter = new twitter('************', //consumer key from twitter api
                        '**************', //consumer secret key from twitter api
-                       ******************', //acces token from twitter api
+                       '******************', //acces token from twitter api
                        '******************'//acces token secret from twitter api
                        );
 var personalityInsight=watson.personality_insights({
