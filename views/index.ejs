@@ -20,7 +20,7 @@
 </head>
 <body class="no-js">
     <script type="text/javascript">
-            var lat,lang;
+        var lat,lang;
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -46,7 +46,7 @@
                     people similar to you at that place :) .</p>
                     <p class="autor"><a href="http://slides.com/tarun_19/connect/live#/" target="_blank">Demo Link</a></p>
                     <div class="buttons-wrapper">
-                        <a href="#" class="button">Connect with Twitter</a>
+                        <a href="#" class="button button-twitter">Connect with Twitter</a>
                         <a href="#" class="button button-stripe">Share Your Location</a>
                     </div>
                 </div>
@@ -142,30 +142,28 @@
     }
     $(function(){
         var flag=0;
-        $('.button').each(function(){
-            $(this).on('click',function(e){
-                e.preventDefault();
-                if($(this).hasClass('button-stripe'))
-                {
+        buttons = document.getElementsByClassName("button")
+        console.log(buttons)
+        for(var button_index=0; button_index<buttons.length; button_index++) {
+            buttons[button_index].onclick = function(ev) {
+                console.log(button_index)
+                ev.preventDefault()
+                if(button_index == 2) {
+                    console.log(button_index, "inside")
                     getLocation();
                     flag=1;
-                }
-                else
-                    {
-                        if(flag==0)
-                        {
-                            alert('You Must share Your location First');
-                        }
-                        else
-                        {
-                            var name=prompt('Enter Your twitter handler',name);
-                            var req=encodeURI('geocode='+lat+','+lang+',5KM');
-                            post('/profile',{name:name,lat:lat,lang:lang});
-                        }
+                } else {
+                    if(flag == 0) {
+                        alert('You Must share Your location First');
+                    } else {
+                        var name=prompt('Enter Your twitter handler',name);
+                        var req=encodeURI('geocode='+lat+','+lang+',5KM');
+                        post('/profile',{name:name,lat:lat,lang:lang});
                     }
-                //window.open('/profile/'+name+'/'+lat+'/'+lang);
-            })
-        })
+                }
+
+            }
+        }
     });
     </script>
 </body>

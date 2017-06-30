@@ -59,7 +59,7 @@ app.post('/profile',function(req,res){
 						    finalData.extraversion=tmp[2].percentage;
 						    finalData.agreeableness=tmp[3].percentage;
 						    finalData.emotionalRage=tmp[4].percentage;
-							finalData.image=dta[0].user.profile_image_url;
+								finalData.image=dta[0].user.profile_image_url;
 						    finalData.noOfTweets=dta[0].user.statuses_count;
 						    finalData.name=dta[0].user.name;
 						    finalData.percentageMatch=Math.abs(100-Math.abs(special[0].percentage+special[1].percentage+special[2].percentage+special[3].percentage+special[4].percentage-(tmp[0].percentage+tmp[4].percentage+tmp[3].percentage+tmp[2].percentage+tmp[1].percentage))*100);
