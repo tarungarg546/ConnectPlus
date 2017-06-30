@@ -1,10 +1,13 @@
 var watson=require('watson-developer-cloud');
+var promisify = require('promisify-node');
 var express=require('express');
 var app=express();
 var async=require('async');
 require('./config/express')(app);
 //URL for the same is by default embedded
 var twitter = require('simple-twitter');
+// var twitter = promisify('simple-twitter');
+
  twitter = new twitter('************', //consumer key from twitter api
                        '**************', //consumer secret key from twitter api
                        '******************', //acces token from twitter api
@@ -15,6 +18,81 @@ var personalityInsight=watson.personality_insights({
 	username:'********************',//btain from ibm watson service
 	password:'******'
 });
+
+function getUserTweets(){
+	return new Promise((resolve, rejects) => {
+		twitter.get('statuses/user_timeline','?screen_name='+req.body.name+'&count=150', (error, data) => {
+			resolve(data);
+		});
+	});
+}
+
+function calcBigFive(text){
+	return new Promise((resolve, reject) => {
+		personalityInsight.profile({contentItems:text},function(err,results){
+			if(err)
+		    {
+		    	res.send(err);
+		    }
+		    var finalData={};
+		    var tmp=results.tree.children[0].children[0].children;
+		    var special=tmp;
+				finalData.openness=tmp[0].percentage;
+		    finalData.conscientiousness=tmp[1].percentage;
+		    finalData.extraversion=tmp[2].percentage;
+		    finalData.agreeableness=tmp[3].percentage;
+		    finalData.emotionalRage=tmp[4].percentage;
+				finalData.image=dta[0].user.profile_image_url;
+		    finalData.noOfTweets=dta[0].user.statuses_count;
+		    finalData.name=dta[0].user.name;
+		    finalData.percentageMatch=Math.abs(100-Math.abs(special[0].percentage+special[1].percentage+special[2].percentage+special[3].percentage+special[4].percentage-(tmp[0].percentage+tmp[4].percentage+tmp[3].percentage+tmp[2].percentage+tmp[1].percentage))*100);
+		    finalData.twitterName=dta[0].user.screen_name;
+		    finalData.description=dta[0].user.description;
+		    finalData.noOfFollowers=dta[0].user.followers_count;
+		    console.log('5 len=',finalArray.length);
+		    
+		    console.log(geo,count);
+		    resolve(finalData);
+		}	
+	})
+	
+}
+
+function getUserBigFive(data){
+	return new Promise(resolve, reject){
+		var text=[],flag=0;
+      	// console.log(data);
+        //data=data.replace(/\\/g,"");
+        //res.send(data);
+        var dta=JSON.parse(data);
+        console.log(dta.length);
+        //res.send(dta);
+        var len=dta.length;
+        console.log('len = ',len);
+        dta.forEach((data) => {
+        	var temp={};
+		    temp.id=data.id_str;
+		    temp.userid= data.user.id_str,
+		    temp.sourceid= 'twitter',
+		    temp.language= 'en',
+		    temp.contenttype= 'text/plain',
+		    temp.content= data.text.replace('[^(\\x20-\\x7F)]*',''),
+		    temp.created= Date.parse(data.created_at)                	
+		    text.push(temp);
+        });
+
+        calcBigFive(text).then((userBigFive) => {
+        	resolve(userBigFive);
+        });
+	};
+}
+
+function getNearbyTweets(geo){
+	return new Promise((resolve, reject) => {
+		twitter.get('search/tweets','?geocode='+geo+'&count='+count, 
+	})
+}
+
 app.get('/',function(req,res){
 	res.render('index');
 });
@@ -23,6 +101,17 @@ app.get('/temp',function(req,res){
 })
 app.post('/profile',function(req,res){
 	var finalArray=[],count=1;
+	var geo=encodeURI(req.body.lat+','+req.body.lang+','+'5km');
+
+	var getUserTweetsPromise = getUserTweets();
+	var userBigFivePromise = getUserTweetsPromise.then((data) => {
+		return getUserBigFive(data);
+	});
+	var nearbyTweetsPromise = userBigFivePromise.then((userBigFive) => {
+		return getNearbyTweets(geo);
+	});
+
+	getUserTweetsPromise.then()
 	twitter.get('statuses/user_timeline','?screen_name='+req.body.name+'&count=150',function(error, data){
                 var text=[],flag=0;
                // console.log(data);
@@ -68,7 +157,7 @@ app.post('/profile',function(req,res){
 						    finalData.noOfFollowers=dta[0].user.followers_count;
 						    finalArray.push(finalData);
 						    console.log('5 len=',finalArray.length);
-						    var geo=encodeURI(req.body.lat+','+req.body.lang+','+'1000km');
+						    var geo=encodeURI(req.body.lat+','+req.body.lang+','+'5km');
 						    console.log(geo,count);
 							twitter.get('search/tweets','?geocode='+geo+'&count='+count,function(error,results){
 								var reslt=JSON.parse(results);
